@@ -26,9 +26,9 @@ class DepartementResource extends Resource
                 Forms\Components\TextInput::make('departement_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('max_clock_in_time')
+                Forms\Components\TimePicker::make('max_clock_in_time')
                     ->required(),
-                Forms\Components\TextInput::make('max_clock_out_time')
+                Forms\Components\TimePicker::make('max_clock_out_time')
                     ->required(),
             ]);
     }

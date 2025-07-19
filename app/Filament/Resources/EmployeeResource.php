@@ -5,13 +5,17 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeResource extends Resource
 {
@@ -23,8 +27,11 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
+                Hidden::make('user_id'),
                 Forms\Components\TextInput::make('employee_id')
                     ->required()
+                    ->unique('employees', 'employee_id', ignoreRecord: true)
+                    ->numeric()
                     ->maxLength(50),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -32,11 +39,28 @@ class EmployeeResource extends Resource
                 Forms\Components\Textarea::make('address')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->rules(
+                        fn(Get $get): Closure => function (string $attribute, $value, Closure $fail) use ($get) {
+                            $existsByEmailNotId = DB::table('users')->where('email', $value)->whereNot('id', $get('user_id'))->exists();
+
+                            if ($existsByEmailNotId) {
+                                $fail(":attribute is already exists.");
+                            }
+                        }
+                    )
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('password')
+                    ->required(fn(string $context) => $context == 'create')
+                    ->helperText(fn(string $context) => $context == 'edit' ? "Kosongkan jika tidak ingin diubah." : "")
+                    ->password()
+                    ->revealable()
+                    ->hiddenOn('view')
+                    ->maxLength(255),
                 Forms\Components\Select::make('departement_id')
-                    ->relationship('departement', 'id')
+                    ->relationship('departement', 'departement_name')
                     ->required(),
             ]);
     }
@@ -60,8 +84,7 @@ class EmployeeResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('departement.id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('departement.departement_name')
                     ->sortable(),
             ])
             ->filters([
