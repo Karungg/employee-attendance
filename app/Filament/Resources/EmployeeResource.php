@@ -32,6 +32,7 @@ class EmployeeResource extends Resource
                     ->required()
                     ->unique('employees', 'employee_id', ignoreRecord: true)
                     ->numeric()
+                    ->readOnlyOn('edit')
                     ->maxLength(50),
                 Forms\Components\TextInput::make('name')
                     ->required()
