@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Attendance extends Model
+class AttendanceHistory extends Model
 {
     protected $fillable = [
+        'date_attendance',
+        'attendance_type',
+        'description',
         'attendance_id',
-        'clock_in',
-        'clock_out',
         'employee_id'
     ];
 
@@ -20,8 +20,8 @@ class Attendance extends Model
         return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
     }
 
-    public function attendance_histories(): HasMany
+    public function attendance(): BelongsTo
     {
-        return $this->hasMany(AttendanceHistory::class, 'attendance_id', 'attendance_id');
+        return $this->belongsTo(Attendance::class, 'attendance_id', 'attendance_id');
     }
 }
