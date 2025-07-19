@@ -17,7 +17,7 @@ class DepartementResource extends Resource
 {
     protected static ?string $model = Departement::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     public static function form(Form $form): Form
     {
@@ -62,6 +62,11 @@ class DepartementResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasRole('admin');
     }
 
     public static function getRelations(): array
