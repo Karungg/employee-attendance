@@ -1,10 +1,6 @@
-# Attendly - Sistem Absensi Karyawan
-![Build Status](https://img.shields.io/github/actions/workflow/status/[username]/[repo]/laravel.yml?branch=main)
-![License](https://img.shields.io/github/license/[username]/[repo])
+# Fullstack Developer Challenge Test
 
-> Sebuah aplikasi web modern untuk mengelola absensi karyawan, memantau jam masuk dan keluar, serta menghasilkan laporan kehadiran. Dibuat dengan Laravel.
-
-![Screenshot Aplikasi](https://via.placeholder.com/800x450.png?text=Screenshot+Aplikasi+Anda)
+![Screenshot Aplikasi](public/docs/login.png)
 
 ---
 
