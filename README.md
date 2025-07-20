@@ -1,61 +1,104 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Attendly - Sistem Absensi Karyawan
+![Build Status](https://img.shields.io/github/actions/workflow/status/[username]/[repo]/laravel.yml?branch=main)
+![License](https://img.shields.io/github/license/[username]/[repo])
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Sebuah aplikasi web modern untuk mengelola absensi karyawan, memantau jam masuk dan keluar, serta menghasilkan laporan kehadiran. Dibuat dengan Laravel.
 
-## About Laravel
+![Screenshot Aplikasi](https://via.placeholder.com/800x450.png?text=Screenshot+Aplikasi+Anda)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+##  Daftar Isi
+* [Tentang Proyek](#tentang-proyek)
+* [Fitur Utama](#fitur-utama)
+* [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+* [Instalasi & Persiapan](#instalasi--persiapan)
+* [Cara Penggunaan](#cara-penggunaan)
+* [Lisensi](#lisensi)
+* [Kontak](#kontak)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Tentang Proyek
+Proyek ini dibuat untuk mengatasi tantangan dalam manajemen kehadiran karyawan secara manual. Dengan sistem terpusat ini, HR atau manajer dapat dengan mudah melacak jam kerja, keterlambatan, dan riwayat absensi setiap karyawan secara *real-time*.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ✨ Fitur Utama
+* **Manajemen Karyawan:** Tambah, edit, dan hapus data karyawan.
+* **Manajemen Departemen:** Kelola departemen dan tetapkan batas waktu jam masuk.
+* **Absensi (Clock In / Clock Out):** Karyawan dapat melakukan absensi masuk dan keluar.
+* **Riwayat Absensi:** Lihat dan filter riwayat absensi per karyawan atau per tanggal.
+* **Deteksi Keterlambatan:** Sistem secara otomatis mendeteksi jika karyawan terlambat.
+* **Laporan Kehadiran:** (Opsional) Ekspor data absensi ke format CSV atau PDF.
+* **Role & Permission:** (Opsional) Peran yang berbeda untuk Admin dan Karyawan.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Teknologi yang Digunakan
+* **Backend:** PHP 8.2, Laravel 11
+* **Frontend:** Blade, Tailwind CSS
+* **Database:** MySQL / PostgreSQL
+* **Admin Panel:** Filament
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Instalasi & Persiapan
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini secara lokal.
 
-### Premium Partners
+1.  **Clone repositori**
+    ```bash
+    git clone [https://github.com/](https://github.com/)[username]/[nama-repo].git
+    cd [nama-repo]
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2.  **Install dependensi Composer**
+    ```bash
+    composer install
+    ```
 
-## Contributing
+3.  **Buat file `.env`**
+    Salin file `.env.example` menjadi `.env`.
+    ```bash
+    cp .env.example .env
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4.  **Generate application key**
+    ```bash
+    php artisan key:generate
+    ```
 
-## Code of Conduct
+5.  **Konfigurasi Database**
+    Buka file `.env` dan sesuaikan pengaturan database Anda (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6.  **Jalankan Migrasi & Seeder**
+    Ini akan membuat semua tabel database dan mengisi data awal yang diperlukan.
+    ```bash
+    php artisan migrate --seed
+    ```
 
-## Security Vulnerabilities
+7.  **Jalankan server lokal**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi sekarang berjalan di `http://127.0.0.1:8000`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8.  **Akun Default**
+    * **Email:** `admin@example.com`
+    * **Password:** `password`
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📝 Cara Penggunaan
+Setelah login, Anda dapat mulai mengelola data master seperti departemen dan karyawan. Karyawan yang login dapat langsung melakukan absensi pada halaman dasbor.
+
+---
+
+## 📄 Lisensi
+Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file `LICENSE` untuk detailnya.
+
+---
+
+## 📧 Kontak
+[Nama Anda] - [emailanda@example.com]
+
+Link Proyek: [https://github.com/[username]/[nama-repo]](https://github.com/[username]/[nama-repo])
