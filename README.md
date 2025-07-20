@@ -39,8 +39,8 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini secara lokal.
 
 1.  **Clone repositori**
     ```bash
-    git clone [https://github.com/](https://github.com/)[Karungg]/[employee-attendance].git
-    cd [employee-attendance]
+    git clone https://github.com/Karungg/employee-attendance.git
+    cd employee-attendance
     ```
 
 2.  **Install dependensi Composer**
@@ -86,7 +86,9 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini secara lokal.
 
 ## 📝 Cara Penggunaan
 Setelah login, Anda dapat mulai mengelola data master seperti departemen dan karyawan. Karyawan yang login dapat langsung melakukan absensi pada halaman dasbor.
+<br>
 **Video Demo Aplikasi**
+<br>
 link : https://drive.google.com/drive/folders/1kxrPgKsykIaptpyNJF-vmnZvZELzFq0S?usp=sharing
 
 ---
