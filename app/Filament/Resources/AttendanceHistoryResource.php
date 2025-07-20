@@ -83,7 +83,8 @@ class AttendanceHistoryResource extends Resource
                     ->formatStateUsing(fn(string $state) => $state == 1 ? "In" : "Out"),
                 Tables\Columns\TextColumn::make('employee.name')
                     ->searchable()
-                    ->label("Employee Name"),
+                    ->label("Employee Name")
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('employee.departement.departement_name')
                     ->searchable()
                     ->label("Departement")

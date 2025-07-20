@@ -77,7 +77,7 @@ class EmployeeAttendance extends Page implements HasTable
 
                     // Get attendance histories
                     $isAttendanceToday = DB::table('attendance_histories')
-                        ->where('employee_id', $employee->id)
+                        ->where('employee_id', $employee->employee_id)
                         ->whereDate('date_attendance', date("Y-m-d"))
                         ->exists();
 
@@ -113,7 +113,7 @@ class EmployeeAttendance extends Page implements HasTable
                             'attendance_id' => Str::upper(Str::random(5)) . "-" . random_int(100000, 999999),
                             'clock_in' => now(),
                             'clock_out' => null,
-                            'employee_id' => $employee->id
+                            'employee_id' => $employee->employee_id
                         ]);
 
                         AttendanceHistory::create([
@@ -121,7 +121,7 @@ class EmployeeAttendance extends Page implements HasTable
                             'attendance_type' => 1,
                             'date_attendance' => now(),
                             'description' => "Absen masuk dengan waktu " . now()->diffForHumans($employee->departement->max_clock_in_time),
-                            'employee_id' => $employee->id
+                            'employee_id' => $employee->employee_id
                         ]);
 
                         Notification::make()
@@ -142,20 +142,20 @@ class EmployeeAttendance extends Page implements HasTable
                     // Get attendance histories
                     $attendance = DB::table('attendance_histories')
                         ->join('attendances', 'attendance_histories.attendance_id', 'attendances.attendance_id')
-                        ->where('attendance_histories.employee_id', $employee->id)
+                        ->where('attendance_histories.employee_id', $employee->employee_id)
                         ->whereDate('attendance_histories.date_attendance', date("Y-m-d"))
                         ->where('attendances.clock_out', null);
 
                     $attendanceIn = DB::table('attendance_histories')
                         ->join('attendances', 'attendance_histories.attendance_id', 'attendances.attendance_id')
-                        ->where('attendance_histories.employee_id', $employee->id)
+                        ->where('attendance_histories.employee_id', $employee->employee_id)
                         ->whereDate('attendance_histories.date_attendance', date("Y-m-d"))
                         ->where('attendances.clock_in', null)
                         ->exists();
 
                     $attendanceOut = DB::table('attendance_histories')
                         ->join('attendances', 'attendance_histories.attendance_id', 'attendances.attendance_id')
-                        ->where('attendance_histories.employee_id', $employee->id)
+                        ->where('attendance_histories.employee_id', $employee->employee_id)
                         ->whereDate('attendance_histories.date_attendance', date("Y-m-d"))
                         ->where('attendances.clock_out', "!=", null)
                         ->exists();
@@ -200,7 +200,7 @@ class EmployeeAttendance extends Page implements HasTable
                         $attendanceId = $attendance->first(['attendance_histories.attendance_id']);
 
                         $updatedAttendance = Attendance::query()
-                            ->where('employee_id', $employee->id)
+                            ->where('employee_id', $employee->employee_id)
                             ->where('attendance_id', $attendanceId->attendance_id)
                             ->update([
                                 'clock_out' => now(),
@@ -211,7 +211,7 @@ class EmployeeAttendance extends Page implements HasTable
                             'attendance_type' => 2,
                             'date_attendance' => now(),
                             'description' => "Absen pulang dengan waktu " . now()->diffForHumans($employee->departement->max_clock_out_time),
-                            'employee_id' => $employee->id
+                            'employee_id' => $employee->employee_id
                         ]);
 
                         Notification::make()
