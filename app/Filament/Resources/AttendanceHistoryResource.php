@@ -6,11 +6,14 @@ use App\Filament\Resources\AttendanceHistoryResource\Pages;
 use App\Filament\Resources\AttendanceHistoryResource\RelationManagers;
 use App\Models\AttendanceHistory;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -107,7 +110,24 @@ class AttendanceHistoryResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('date_attendance', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('date_attendance', '<=', $date),
+                            );
+                    }),
+                SelectFilter::make('departement_name')
+                    ->relationship('employee.departement', 'departement_name')
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
