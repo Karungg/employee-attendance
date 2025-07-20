@@ -6,7 +6,9 @@ use App\Filament\Resources\AttendanceHistoryResource\Pages;
 use App\Filament\Resources\AttendanceHistoryResource\RelationManagers;
 use App\Models\AttendanceHistory;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -26,21 +28,36 @@ class AttendanceHistoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\DateTimePicker::make('date_attendance')
-                    ->required(),
-                Forms\Components\TextInput::make('attendance_type')
-                    ->required()
-                    ->numeric()
-                    ->default(1),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('attendance_id')
-                    ->relationship('attendance', 'id')
-                    ->required(),
-                Forms\Components\Select::make('employee_id')
-                    ->relationship('employee', 'name')
-                    ->required(),
+                Section::make()
+                    ->schema([
+                        Forms\Components\DatePicker::make('date_attendance')
+                            ->required(),
+                        Forms\Components\TextInput::make('attendance_type')
+                            ->required()
+                            ->default("In"),
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\Select::make('attendance')
+                            ->relationship('attendance', 'attendance_id')
+                            ->required()
+                            ->label('Attendance ID'),
+                        Forms\Components\Select::make('employee_id')
+                            ->relationship('employee', 'name')
+                            ->label("Employee Name")
+                            ->required(),
+                        Forms\Components\TextInput::make('departement_name')
+                            ->required(),
+                        Forms\Components\TimePicker::make('clock_in')
+                            ->required()
+                            ->hidden(fn(Get $get): bool => $get('attendance_type') == 'Out'),
+                        Forms\Components\TimePicker::make('clock_out')
+                            ->required()
+                            ->hidden(fn(Get $get): bool => $get('attendance_type') == 'In'),
+                    ])->columns([
+                        'default' => 1,
+                        'sm' => 2
+                    ])
             ]);
     }
 
