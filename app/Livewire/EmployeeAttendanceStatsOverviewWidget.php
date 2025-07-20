@@ -10,9 +10,9 @@ class EmployeeAttendanceStatsOverviewWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Profile', $profile),
-            Stat::make('Bounce rate', '21%'),
-            Stat::make('Average time on page', '3:12'),
+            Stat::make('Departement Name', auth()->user()->employee->departement->departement_name),
+            Stat::make('Max Clock In Time', auth()->user()->employee->departement->max_clock_in_time),
+            Stat::make('Max Clock Out Time', auth()->user()->employee->departement->max_clock_out_time),
         ];
     }
 }

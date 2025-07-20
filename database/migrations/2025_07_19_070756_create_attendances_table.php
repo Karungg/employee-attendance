@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('attendance_id', 100)->unique();
             $table->timestamp('clock_in');
-            $table->timestamp('clock_out');
+            $table->timestamp('clock_out')->nullable();
             $table->string('employee_id', 50)->unique();
             $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
             $table->timestamps();

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamp('date_attendance');
             $table->tinyInteger('attendance_type')->default(1);
             $table->text('description');
-            $table->string('attendance_id', 50)->unique();
-            $table->string('employee_id', 50)->unique();
+            $table->string('attendance_id', 50);
+            $table->string('employee_id', 50);
             $table->foreign('attendance_id')->references('attendance_id')->on('attendances')->onDelete('cascade');
             $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
             $table->timestamps();
