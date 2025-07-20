@@ -14,10 +14,6 @@ class DepartementSeeder extends Seeder
      */
     public function run(): void
     {
-        Departement::create([
-            'departement_name' => "Departemen 1",
-            'max_clock_in_time' => Carbon::createFromTimeString("08:00:00"),
-            'max_clock_out_time' => Carbon::createFromTimeString("17:00:00")
-        ]);
+        Departement::factory(5)->create();
     }
 }

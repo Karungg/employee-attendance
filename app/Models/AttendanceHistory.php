@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AttendanceHistory extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'date_attendance',
         'attendance_type',
